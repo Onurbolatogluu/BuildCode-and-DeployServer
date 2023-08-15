@@ -25,11 +25,11 @@ jobs:
       uses: dawidd6/action-send-mail@v3
       with:
         server_address: ${{ secrets.HOST }}
-        server_port: 465
+        server_port: 587
         username: ${{secrets.MAIL_USERNAME}}
         password: ${{secrets.MAIL_PASSWORD}}
         subject: GitHub Actions Result
-        to: bolatogluu@gmail.com
+        to: bolatoglu.onur@gmail.com
         from: ${{secrets.MAIL_USERNAME}}
         body: |
           SSH Action Result: 
