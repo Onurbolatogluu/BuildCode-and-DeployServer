@@ -19,6 +19,15 @@ jobs:
         script: |
           date
           ls -a
+          
+    - name: Set result message
+      id: result-message
+      run: |
+        if [[ "${{ steps.ssh-step.outcome }}" == "success" ]]; then
+          echo "::set-output name=message::Başarılı! Dağıtıldı."
+        else
+          echo "::set-output name=message::SSH Action Result failed."
+        fi
 
     - name: Send Email
       if: always() # Bu adımı her zaman çalıştırır.
