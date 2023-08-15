@@ -31,6 +31,7 @@ jobs:
         subject: GitHub Actions Result
         to: bolatoglu.onur@gmail.com
         from: ${{secrets.MAIL_USERNAME}}
+        secure: false 
         body: |
           SSH Action Result: 
           ${{ steps.ssh-step.outputs.stdout }}
