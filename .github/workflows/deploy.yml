@@ -34,7 +34,7 @@ jobs:
         from: ${{secrets.MAIL_USERNAME}} 
         ignore_cert: true
         body: |
-          SSH Action Result: 
+          ${{ if eq(steps.ssh-step.outcome, 'success') }}Başarılı! Dağıtıldı.${{ else }}SSH Action Result: 
           ${{ steps.ssh-step.outputs.stdout }}
           Error (if any):
-          ${{ steps.ssh-step.outputs.stderr }}
+          ${{ steps.ssh-step.outputs.stderr }}${{ end }}
