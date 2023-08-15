@@ -1,0 +1,36 @@
+name: remote ssh command
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      id: ssh-step
+      uses: appleboy/ssh-action@v0.1.8
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: |
+          date
+          ls -a
+
+    - name: Send Email
+      if: always() # Bu adımı her zaman çalıştırır.
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{secrets.MAIL_USERNAME}}
+        password: ${{secrets.MAIL_PASSWORD}}
+        subject: GitHub Actions Result
+        to: your_email@example.com
+        body: |
+          SSH Action Result: 
+          ${{ steps.ssh-step.outputs.stdout }}
+          Error (if any):
+          ${{ steps.ssh-step.outputs.stderr }}
