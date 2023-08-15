@@ -24,10 +24,11 @@ jobs:
       id: result-message
       run: |
         if [[ "${{ steps.ssh-step.outcome }}" == "success" ]]; then
-          echo "::set-output name=message::Başarılı! Dağıtıldı."
+          echo "MESSAGE=Başarılı! Dağıtıldı." >> $GITHUB_ENV
         else
-          echo "::set-output name=message::SSH Action Result failed."
+          echo "MESSAGE=SSH Action Result failed." >> $GITHUB_ENV
         fi
+
 
     - name: Send Email
       if: always() # Bu adımı her zaman çalıştırır.
@@ -42,4 +43,4 @@ jobs:
         to: bolatoglu.onur@gmail.com
         from: ${{secrets.MAIL_USERNAME}} 
         ignore_cert: true
-        body: ${{ steps.result-message.outputs.message }}
+        body: ${{ env.MESSAGE }}
