@@ -30,6 +30,7 @@ jobs:
         password: ${{secrets.MAIL_PASSWORD}}
         subject: GitHub Actions Result
         to: bolatogluu@gmail.com
+        from: ${{secrets.MAIL_USERNAME}}
         body: |
           SSH Action Result: 
           ${{ steps.ssh-step.outputs.stdout }}
