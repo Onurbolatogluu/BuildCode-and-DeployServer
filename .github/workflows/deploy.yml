@@ -26,12 +26,13 @@ jobs:
       with:
         server_address: ${{ secrets.HOST }}
         server_port: 587
+        secure: false
         username: ${{secrets.MAIL_USERNAME}}
         password: ${{secrets.MAIL_PASSWORD}}
         subject: GitHub Actions Result
         to: bolatoglu.onur@gmail.com
-        from: ${{secrets.MAIL_USERNAME}}
-        secure: false 
+        from: ${{secrets.MAIL_USERNAME}} 
+        ignore_cert: true
         body: |
           SSH Action Result: 
           ${{ steps.ssh-step.outputs.stdout }}
